@@ -45,6 +45,12 @@
 		84DCFB2117A7708F008594AD /* material_center_smart_item_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFB0D17A7708F008594AD /* material_center_smart_item_highlight@2x.png */; };
 		84DCFB2217A7708F008594AD /* material_center_smart_item.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFB0E17A7708F008594AD /* material_center_smart_item.png */; };
 		84DCFB2317A7708F008594AD /* material_center_smart_item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFB0F17A7708F008594AD /* material_center_smart_item@2x.png */; };
+		84DCFB2817A79831008594AD /* Content1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DCFB2617A79831008594AD /* Content1ViewController.m */; };
+		84DCFB2917A79831008594AD /* Content1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFB2717A79831008594AD /* Content1ViewController.xib */; };
+		84DCFB2D17A7983A008594AD /* Content2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DCFB2B17A7983A008594AD /* Content2ViewController.m */; };
+		84DCFB2E17A7983A008594AD /* Content2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFB2C17A7983A008594AD /* Content2ViewController.xib */; };
+		84DCFB3917A7AB48008594AD /* ScrollTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DCFB3717A7AB48008594AD /* ScrollTabViewController.m */; };
+		84DCFB3A17A7AB48008594AD /* ScrollTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DCFB3817A7AB48008594AD /* ScrollTabViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +109,15 @@
 		84DCFB0D17A7708F008594AD /* material_center_smart_item_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "material_center_smart_item_highlight@2x.png"; sourceTree = "<group>"; };
 		84DCFB0E17A7708F008594AD /* material_center_smart_item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = material_center_smart_item.png; sourceTree = "<group>"; };
 		84DCFB0F17A7708F008594AD /* material_center_smart_item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "material_center_smart_item@2x.png"; sourceTree = "<group>"; };
+		84DCFB2517A79831008594AD /* Content1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content1ViewController.h; sourceTree = "<group>"; };
+		84DCFB2617A79831008594AD /* Content1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Content1ViewController.m; sourceTree = "<group>"; };
+		84DCFB2717A79831008594AD /* Content1ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Content1ViewController.xib; sourceTree = "<group>"; };
+		84DCFB2A17A7983A008594AD /* Content2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content2ViewController.h; sourceTree = "<group>"; };
+		84DCFB2B17A7983A008594AD /* Content2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Content2ViewController.m; sourceTree = "<group>"; };
+		84DCFB2C17A7983A008594AD /* Content2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Content2ViewController.xib; sourceTree = "<group>"; };
+		84DCFB3617A7AB48008594AD /* ScrollTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollTabViewController.h; sourceTree = "<group>"; };
+		84DCFB3717A7AB48008594AD /* ScrollTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollTabViewController.m; sourceTree = "<group>"; };
+		84DCFB3817A7AB48008594AD /* ScrollTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollTabViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +225,8 @@
 		84DCFAD917A76121008594AD /* ToolBar */ = {
 			isa = PBXGroup;
 			children = (
+				84DCFB2F17A7A51C008594AD /* ScrollTabViewController */,
+				84DCFB2417A7978C008594AD /* ContentViewController */,
 				84DCFAF617A76800008594AD /* TabViewController.h */,
 				84DCFAF717A76800008594AD /* TabViewController.m */,
 				84DCFAF817A76800008594AD /* TabViewController.xib */,
@@ -242,6 +259,29 @@
 				84DCFB0F17A7708F008594AD /* material_center_smart_item@2x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		84DCFB2417A7978C008594AD /* ContentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84DCFB2517A79831008594AD /* Content1ViewController.h */,
+				84DCFB2617A79831008594AD /* Content1ViewController.m */,
+				84DCFB2717A79831008594AD /* Content1ViewController.xib */,
+				84DCFB2A17A7983A008594AD /* Content2ViewController.h */,
+				84DCFB2B17A7983A008594AD /* Content2ViewController.m */,
+				84DCFB2C17A7983A008594AD /* Content2ViewController.xib */,
+			);
+			name = ContentViewController;
+			sourceTree = "<group>";
+		};
+		84DCFB2F17A7A51C008594AD /* ScrollTabViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84DCFB3617A7AB48008594AD /* ScrollTabViewController.h */,
+				84DCFB3717A7AB48008594AD /* ScrollTabViewController.m */,
+				84DCFB3817A7AB48008594AD /* ScrollTabViewController.xib */,
+			);
+			name = ScrollTabViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +381,9 @@
 				84DCFB2117A7708F008594AD /* material_center_smart_item_highlight@2x.png in Resources */,
 				84DCFB2217A7708F008594AD /* material_center_smart_item.png in Resources */,
 				84DCFB2317A7708F008594AD /* material_center_smart_item@2x.png in Resources */,
+				84DCFB2917A79831008594AD /* Content1ViewController.xib in Resources */,
+				84DCFB2E17A7983A008594AD /* Content2ViewController.xib in Resources */,
+				84DCFB3A17A7AB48008594AD /* ScrollTabViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +422,9 @@
 				84DCFAA717A75983008594AD /* AppDelegate.m in Sources */,
 				84DCFAD617A75E92008594AD /* MyViewController.m in Sources */,
 				84DCFAF917A76800008594AD /* TabViewController.m in Sources */,
+				84DCFB2817A79831008594AD /* Content1ViewController.m in Sources */,
+				84DCFB2D17A7983A008594AD /* Content2ViewController.m in Sources */,
+				84DCFB3917A7AB48008594AD /* ScrollTabViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

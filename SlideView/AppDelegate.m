@@ -14,9 +14,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+
     TabViewController * tabView=[[TabViewController alloc]initWithNibName:@"TabViewController" bundle:nil];
-    self.window.rootViewController=tabView;
+
+    UINavigationController * navi=[[UINavigationController alloc]initWithRootViewController:tabView];
+    
+    self.window.rootViewController=navi;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
