@@ -39,6 +39,21 @@
 - (void)viewDidUnload {
     [self setContentView:nil];
     [self setTabView:nil];
+    [self setArrowImage:nil];
+    [self setButtonArray:nil];
     [super viewDidUnload];
+}
+- (IBAction)tabOnClicked:(UIButton *)sender {
+    for (UIButton * btn in self.buttonArray) {
+        btn.selected=NO;
+    }
+    sender.selected=YES;
+    
+    [UIView animateWithDuration:.2 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        CGRect newFrame=self.arrowImage.frame;
+        newFrame.origin.x=sender.frame.origin.x;
+        self.arrowImage.frame=newFrame;
+    } completion:^(BOOL finished) {
+    }];
 }
 @end
