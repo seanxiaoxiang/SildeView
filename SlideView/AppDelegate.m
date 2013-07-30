@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "TabViewController.h"
 
 @implementation AppDelegate
 
@@ -14,6 +15,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    TabViewController * tabView=[[TabViewController alloc]initWithNibName:@"TabViewController" bundle:nil];
+    self.window.rootViewController=tabView;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

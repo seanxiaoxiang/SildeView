@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    Type0=0,
+    Type1,
+    Type2,
+    Type3
+}TabType;
+
 @interface MyViewController : UIViewController
 
 @end
