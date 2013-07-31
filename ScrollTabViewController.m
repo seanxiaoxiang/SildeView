@@ -115,7 +115,6 @@
         [btn addTarget:self action:@selector(topButtonDidPressed:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag=i;
     }
-    
 }
 
 -(void) configContentScrollView
@@ -136,7 +135,6 @@
     CGPoint p=CGPointMake(sender.tag * CONTENT_SCROLL_WIDTH, 0);
     self.contentScrollView.contentOffset=p;
     [self.contentScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
-    
     
     [self swithTopButton];
 }
@@ -199,4 +197,78 @@
     [self swithTopButton];
 }
 
+#pragma mark -加载viewcontroller
+-(void) initTheViewControllerAtIndex:(NSInteger)index
+{
+    UIViewController * vc=    viewController[index];
+    [self.contentScrollView addSubview:vc.view];
+    CGRect frame=vc.view.frame;
+    frame.origin.x=index * CONTENT_SCROLL_WIDTH;
+    frame.size.height=self.contentScrollView.bounds.size.height;
+    
+    if ([vc.view isKindOfClass:[UIScrollView class]]) {
+        ((UIScrollView *)vc.view).scrollsToTop = NO;
+    }
+}
+
+-(void) loadViewControllers
+{
+    if (self.topName.count<=0) {
+        return;
+    }
+    NSInteger forwardContentIndex = (int)floorf((self.contentScrollView.contentOffset.x / CONTENT_SCROLL_WIDTH)+0.5);
+
+    if(forwardContentIndex <0){
+        forwardContentIndex=0;
+    }
+    else if(forwardContentIndex > self.topName.count-1){
+        forwardContentIndex=self.topName.count-1;
+    }
+
+    // call the method which subclass may override
+    [self vcDidLoadAtIndex:forwardContentIndex];
+
+    // 初始化（如果需要的话）
+    if (!viewController[forwardContentIndex]) {
+        [self initTheViewControllerAtIndex:forwardContentIndex];
+    }
+
+    if (!viewController[forwardContentIndex-1] && forwardContentIndex-1 >= 0) {
+        [self initTheViewControllerAtIndex:forwardContentIndex-1];
+    }
+
+    if (!viewController[forwardContentIndex+1] && forwardContentIndex+1 < self.topName.count) {
+        [self initTheViewControllerAtIndex:forwardContentIndex+1];
+    }
+    
+    
+    // 初始化完了之后
+    // 禁止其他的gridview的 scrollsToTop， 只允许当前这个
+    for (int i = 0; i < self.topName.count; i++) {
+        // 只允许当前的
+        if ([viewController[i].view isKindOfClass:[UIScrollView class]]) {
+            if (i == forwardContentIndex) {
+                [(UIScrollView *)viewController[i].view setScrollsToTop:YES];
+            }else{
+                [(UIScrollView *)viewController[i].view setScrollsToTop:NO];
+            }
+        }
+        
+        // 不是当前显示的，调用viewDidDisappear
+        if (i != forwardContentIndex) {
+            [viewController[i] viewDidDisappear:YES];
+        }else{
+            // 当前的vc，则调用我自定义的myViewDidAppear
+            if ([viewController[forwardContentIndex] respondsToSelector:@selector(myViewDidAppear:)]){
+                [viewController[forwardContentIndex] performSelector:@selector(myViewDidAppear:) withObject:[NSNumber numberWithBool:YES]];
+            }
+        }
+    }
+}
+
+
+// SUBCLASS OVERRIDE
+- (void)vcDidLoadAtIndex:(NSInteger)index{
+    // Subclass will override this
+}
 @end

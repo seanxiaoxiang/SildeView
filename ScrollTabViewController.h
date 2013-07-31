@@ -21,4 +21,16 @@
 @property (strong, nonatomic) NSMutableArray * topButton;   //顶端的tab按钮
 @property (strong, nonatomic) NSMutableArray * topName; //tab按钮的名字
 
+-(void) configUI;
+-(void) configTabScrollView;
+-(void) configContentScrollView;
+
+-(void)swithTopButton;
+-(void)refleshButtonTitile;
+
+
+-(void) initTheViewControllerAtIndex:(NSInteger)index;
+-(void) loadViewControllers;
+-(void) vcDidLoadAtIndex:(NSInteger)index;
+
 @end
