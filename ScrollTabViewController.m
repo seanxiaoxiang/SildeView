@@ -42,15 +42,13 @@
     //监听content 的offset改变
     [self.contentScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     //不显示滚动条
-    self.contentScrollView.showsHorizontalScrollIndicator=YES;
-    self.contentScrollView.showsVerticalScrollIndicator=YES;
+    self.contentScrollView.showsHorizontalScrollIndicator=NO;
+    self.contentScrollView.showsVerticalScrollIndicator=NO;
     self.contentScrollView.pagingEnabled=YES;
     self.contentScrollView.scrollsToTop=NO;
-//    self.contentScrollView.contentSize=CGSizeMake(500, 600);
+    self.contentScrollView.backgroundColor=[UIColor grayColor];
     
     [self configUI];
-    
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,7 +73,6 @@
     if (object == self.contentScrollView)
     {
         [self swithTopButton];
-//        NSLog(@"x:%f",frame.origin.x);
     }
 }
 
@@ -98,7 +95,9 @@
     self.selectIndicator.frame=CGRectMake(0, 0, buttonWidth, self.selectIndicator.bounds.size.height);
     
     //设置top scroll 的大小 宽度为topname数量乘以buttonwidth，高度为topscrollviewb本身高度
-    self.contentScrollView.contentSize=CGSizeMake(self.topName.count*buttonWidth, self.topScrollView.frame.size.height);
+    self.topScrollView.contentSize=CGSizeMake(self.topName.count*buttonWidth, self.topScrollView.frame.size.height);
+    
+//    NSLog(@"configContentScrollView:   content Size width:%f",self.topScrollView.contentSize.width);
     
     //为每个topname新添加一个button
     for (int i=0; i<self.topName.count; i++) {
@@ -134,8 +133,33 @@
 -(void)swithTopButton
 {
     CGRect frame=self.selectIndicator.frame;
+    //转换的时候先和 scroll width相除，再进行比较，使之得到的是一些固定的值
     frame.origin.x=(self.contentScrollView.contentOffset.x  / CONTENT_SCROLL_WIDTH ) * buttonWidth;
     self.selectIndicator.frame=frame;
+    
+//    NSLog(@"frame  max x:%f  max topscroll bounds:%f",CGRectGetMaxX(frame), CGRectGetMaxX(self.topScrollView.bounds) );
+    
+    CGFloat offsetX;
+
+    // 往右滚
+    if (CGRectGetMaxX(frame) >= CGRectGetMaxX(self.topScrollView.bounds)){
+        //滑动到尽头
+        if (CGRectGetMaxX(frame) > self.topScrollView.contentSize.width) {
+            offsetX=self.topScrollView.contentSize.width-self.topScrollView.bounds.size.width;
+        }
+        else{
+            offsetX=CGRectGetMaxX(frame) -self.topScrollView.bounds.size.width;
+        }
+        self.topScrollView.contentOffset=CGPointMake(offsetX, 0);
+    }
+    else if (CGRectGetMinX(frame) <= CGRectGetMinX(self.topScrollView.bounds) )
+    {
+        offsetX=CGRectGetMinX(frame);
+        if (offsetX <0 ) {
+            offsetX=0;
+        }
+        self.topScrollView.contentOffset=CGPointMake(offsetX, 0);
+    }
 }
 
 @end
