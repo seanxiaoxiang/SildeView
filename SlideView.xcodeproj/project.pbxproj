@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84363A5317A8A14F00B7E3AC /* UIView+UIView_FindAndResignFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 84363A5217A8A14F00B7E3AC /* UIView+UIView_FindAndResignFirstResponder.m */; };
 		84DCFA9717A75983008594AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DCFA9617A75983008594AD /* UIKit.framework */; };
 		84DCFA9917A75983008594AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DCFA9817A75983008594AD /* Foundation.framework */; };
 		84DCFA9B17A75983008594AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DCFA9A17A75983008594AD /* CoreGraphics.framework */; };
@@ -64,6 +65,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		84363A5117A8A14F00B7E3AC /* UIView+UIView_FindAndResignFirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIView_FindAndResignFirstResponder.h"; sourceTree = "<group>"; };
+		84363A5217A8A14F00B7E3AC /* UIView+UIView_FindAndResignFirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIView_FindAndResignFirstResponder.m"; sourceTree = "<group>"; };
 		84DCFA9217A75983008594AD /* SlideView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DCFA9617A75983008594AD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84DCFA9817A75983008594AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -280,6 +283,8 @@
 				84DCFB3617A7AB48008594AD /* ScrollTabViewController.h */,
 				84DCFB3717A7AB48008594AD /* ScrollTabViewController.m */,
 				84DCFB3817A7AB48008594AD /* ScrollTabViewController.xib */,
+				84363A5117A8A14F00B7E3AC /* UIView+UIView_FindAndResignFirstResponder.h */,
+				84363A5217A8A14F00B7E3AC /* UIView+UIView_FindAndResignFirstResponder.m */,
 			);
 			name = ScrollTabViewController;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				84DCFB2817A79831008594AD /* Content1ViewController.m in Sources */,
 				84DCFB2D17A7983A008594AD /* Content2ViewController.m in Sources */,
 				84DCFB3917A7AB48008594AD /* ScrollTabViewController.m in Sources */,
+				84363A5317A8A14F00B7E3AC /* UIView+UIView_FindAndResignFirstResponder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
