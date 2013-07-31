@@ -37,7 +37,6 @@
     
     self.topName=[[NSMutableArray alloc]initWithObjects:@"第一个",@"第二个",@"第三个",@"第四个",@"第五个", nil];
     
-    
     self.contentScrollView.delegate=self;
     //监听content 的offset改变
     [self.contentScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
@@ -97,7 +96,8 @@
     //设置top scroll 的大小 宽度为topname数量乘以buttonwidth，高度为topscrollviewb本身高度
     self.topScrollView.contentSize=CGSizeMake(self.topName.count*buttonWidth, self.topScrollView.frame.size.height);
     
-//    NSLog(@"configContentScrollView:   content Size width:%f",self.topScrollView.contentSize.width);
+    
+    self.topButton=[[NSMutableArray alloc]initWithCapacity:self.topName.count];
     
     //为每个topname新添加一个button
     for (int i=0; i<self.topName.count; i++) {
@@ -108,12 +108,14 @@
         [btn.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [btn setBackgroundColor:[UIColor clearColor]];
         [self.topButton addObject:btn];
-        
+
         [self.topScrollView addSubview:btn];
         btn.frame = CGRectMake(i*buttonWidth, 0, buttonWidth, self.topScrollView.frame.size.height);
       
+        [btn addTarget:self action:@selector(topButtonDidPressed:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag=i;
     }
+    
 }
 
 -(void) configContentScrollView
@@ -123,22 +125,30 @@
    
 }
 #pragma mark -top button 按钮被按下
--(void) topButtonDidPressed:(UIButton *) sender
+-(void)   topButtonDidPressed :(UIButton *) sender
 {
     //发生切换，resign first responder
     [self.view findAndResignFirstResponder];
+    
+    // 这里会触发ScrollView的Delegate，而不触发KVO回调，因此不会影响上方按钮移动的动画
+    [self.contentScrollView removeObserver:self forKeyPath:@"contentOffset"];
+    
+    CGPoint p=CGPointMake(sender.tag * CONTENT_SCROLL_WIDTH, 0);
+    self.contentScrollView.contentOffset=p;
+    [self.contentScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    
+    
+    [self swithTopButton];
 }
 
-#pragma mark - top button的切换
+#pragma mark - top button的切换与字体的改变
 -(void)swithTopButton
 {
     CGRect frame=self.selectIndicator.frame;
     //转换的时候先和 scroll width相除，再进行比较，使之得到的是一些固定的值
     frame.origin.x=(self.contentScrollView.contentOffset.x  / CONTENT_SCROLL_WIDTH ) * buttonWidth;
     self.selectIndicator.frame=frame;
-    
-//    NSLog(@"frame  max x:%f  max topscroll bounds:%f",CGRectGetMaxX(frame), CGRectGetMaxX(self.topScrollView.bounds) );
-    
+       
     CGFloat offsetX;
 
     // 往右滚
@@ -160,6 +170,33 @@
         }
         self.topScrollView.contentOffset=CGPointMake(offsetX, 0);
     }
+    
+    [self refleshButtonTitile];
+}
+
+
+-(void)refleshButtonTitile
+{
+    // top按钮文字颜色变灰色
+    NSInteger forwardContentIndex = (int)floorf((self.contentScrollView.contentOffset.x / CONTENT_SCROLL_WIDTH)+0.5);
+   
+    // 改变top按钮文字的颜色
+    if (self.topButton.count <= forwardContentIndex) {
+        return;
+    }
+    UIButton *currentButton = self.topButton[forwardContentIndex];
+    for (UIButton *aButton in self.topButton) {
+        if (aButton != currentButton) {
+            [aButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal] ;
+        }
+    }
+    [currentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+}
+
+#pragma mark -顶端tab 事件响应
+-(void)topTabDidPressed:(UIButton *) sender
+{
+    [self swithTopButton];
 }
 
 @end
