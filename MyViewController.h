@@ -16,5 +16,6 @@ typedef enum {
 }TabType;
 
 @interface MyViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UILabel *labelView;
 
 @end

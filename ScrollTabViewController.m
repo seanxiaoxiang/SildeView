@@ -8,6 +8,7 @@
 
 #import "ScrollTabViewController.h"
 #import "UIView+UIView_FindAndResignFirstResponder.h"
+#import "MyViewController.h"
 
 @interface ScrollTabViewController ()
 {
@@ -33,7 +34,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.contentScrollView.scrollsToTop=NO;
+    
+    //初始化viewcontrollers
+    for (int i=0; i<5; i++) {
+    
+        MyViewController * view=[[MyViewController alloc]initWithNibName:@"MyViewController" bundle:nil];
+        viewController[i]=view;
+        view.labelView.text=[NSString stringWithFormat:@"%d",i];
+    }
+    
+
     
     self.topName=[[NSMutableArray alloc]initWithObjects:@"第一个",@"第二个",@"第三个",@"第四个",@"第五个", nil];
     
@@ -47,6 +57,7 @@
     self.contentScrollView.scrollsToTop=NO;
     self.contentScrollView.backgroundColor=[UIColor grayColor];
     
+    //配置UI
     [self configUI];
 }
 
@@ -65,6 +76,15 @@
 
 #pragma mark -UIScrollView Delegate
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (scrollView == self.contentScrollView) {
+        // 滚动的时候，加载三个ViewController，包括左右的预加载
+        [self loadViewControllers];
+        
+        // 因为发生了切换，所以应当resign first responder
+        [self.view findAndResignFirstResponder];
+    }
+}
 
 #pragma mark KVO Protocol
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -119,9 +139,11 @@
 
 -(void) configContentScrollView
 {
-    // 设置content scroll view的正文 大小为  name的个数乘以 scrollview本来的宽度 
+    // 设置content scroll view的正文 大小为  name的个数乘以 scrollview本来的宽度
     self.contentScrollView.contentSize=CGSizeMake(self.topName.count* CONTENT_SCROLL_WIDTH, self.contentScrollView.contentSize.height);
-   
+    
+    [self loadViewControllers];
+    
 }
 #pragma mark -top button 按钮被按下
 -(void)   topButtonDidPressed :(UIButton *) sender
@@ -137,6 +159,7 @@
     [self.contentScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
     [self swithTopButton];
+    [self loadViewControllers];
 }
 
 #pragma mark - top button的切换与字体的改变
@@ -198,26 +221,33 @@
 }
 
 #pragma mark -加载viewcontroller
+
+// 加载某一个viewcontroller
 -(void) initTheViewControllerAtIndex:(NSInteger)index
 {
     UIViewController * vc=    viewController[index];
+ 
     [self.contentScrollView addSubview:vc.view];
     CGRect frame=vc.view.frame;
     frame.origin.x=index * CONTENT_SCROLL_WIDTH;
     frame.size.height=self.contentScrollView.bounds.size.height;
+    vc.view.frame=frame;
     
     if ([vc.view isKindOfClass:[UIScrollView class]]) {
         ((UIScrollView *)vc.view).scrollsToTop = NO;
     }
 }
 
+//加载所有的viewcontroller
 -(void) loadViewControllers
 {
+    
     if (self.topName.count<=0) {
         return;
     }
     NSInteger forwardContentIndex = (int)floorf((self.contentScrollView.contentOffset.x / CONTENT_SCROLL_WIDTH)+0.5);
 
+    
     if(forwardContentIndex <0){
         forwardContentIndex=0;
     }
@@ -229,22 +259,25 @@
     [self vcDidLoadAtIndex:forwardContentIndex];
 
     // 初始化（如果需要的话）
-    if (!viewController[forwardContentIndex]) {
+//    if (!viewController[forwardContentIndex]) {
         [self initTheViewControllerAtIndex:forwardContentIndex];
-    }
+        
+//    }
 
-    if (!viewController[forwardContentIndex-1] && forwardContentIndex-1 >= 0) {
+    if (forwardContentIndex-1 >= 0) {
         [self initTheViewControllerAtIndex:forwardContentIndex-1];
     }
 
-    if (!viewController[forwardContentIndex+1] && forwardContentIndex+1 < self.topName.count) {
+    if ( forwardContentIndex+1 < self.topName.count) {
         [self initTheViewControllerAtIndex:forwardContentIndex+1];
     }
     
     
     // 初始化完了之后
     // 禁止其他的gridview的 scrollsToTop， 只允许当前这个
-    for (int i = 0; i < self.topName.count; i++) {
+    
+  
+     for (int i = 0; i < self.topName.count; i++) {
         // 只允许当前的
         if ([viewController[i].view isKindOfClass:[UIScrollView class]]) {
             if (i == forwardContentIndex) {
@@ -264,6 +297,8 @@
             }
         }
     }
+    
+      /**/
 }
 
 

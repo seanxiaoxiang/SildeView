@@ -35,4 +35,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [self setLabelView:nil];
+    [super viewDidUnload];
+}
 @end
