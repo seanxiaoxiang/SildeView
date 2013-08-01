@@ -37,7 +37,6 @@
     
     //初始化viewcontrollers
     for (int i=0; i<5; i++) {
-    
         MyViewController * view=[[MyViewController alloc]initWithNibName:@"MyViewController" bundle:nil];
         viewController[i]=view;
         view.labelView.text=[NSString stringWithFormat:@"%d",i];

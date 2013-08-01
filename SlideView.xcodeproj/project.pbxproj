@@ -147,6 +147,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841C8C0E17AA084B004BC324 /* WXScrollTabViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = WXScrollTabViewController;
+			sourceTree = "<group>";
+		};
 		84DCFA8717A75983008594AD = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +235,7 @@
 		84DCFAD917A76121008594AD /* ToolBar */ = {
 			isa = PBXGroup;
 			children = (
+				841C8C0E17AA084B004BC324 /* WXScrollTabViewController */,
 				84DCFB2F17A7A51C008594AD /* ScrollTabViewController */,
 				84DCFB2417A7978C008594AD /* ContentViewController */,
 				84DCFAF617A76800008594AD /* TabViewController.h */,
